@@ -71,7 +71,17 @@ test.describe('API Automation Tests Assignment', () => {
         const responseBody = await response.json();
         expect(responseBody).toMatchObject(updatedObject);
         expect(responseBody.name).toBe('Apple MacBook Air M3'); // Ensure the name is updated
-
+        //Validate the structure of the response
+        expect(responseBody).toHaveProperty('id');
+        expect(responseBody).toHaveProperty('name');
+        expect(responseBody).toHaveProperty('data');
+        expect(responseBody.data).toHaveProperty('color');
+        expect(responseBody.data).toHaveProperty('capacity');
+        //print the updated object body 
+        console.log('Response ID:', responseBody.id);
+        console.log('Response Name:', responseBody.name);
+        console.log('Response Color:', responseBody.data.color);
+        console.log('Response Capacity:', responseBody.data.capacity);
         await logResponse(response);
     });
 
