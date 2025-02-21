@@ -1,5 +1,4 @@
 # AmuedTest-Hirushi
- # API Automation Tests with Playwright
 
 ## Overview
 This project demonstrates API automation testing using Playwright's built-in API testing capabilities. It includes tests for CRUD (Create, Read, Update, Delete) operations on a RESTful API.
