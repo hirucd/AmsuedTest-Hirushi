@@ -8,7 +8,6 @@ const logResponse = async (response) => {
     console.log('Response:', await response.text());
     console.log();
 };
-
 const expectedFirstObject = {
     id: "1",
     name: "Google Pixel 6 Pro",
@@ -24,7 +23,6 @@ const newObject = {
         capacity: "200 GB"
     }
 };
-
 const updatedObject = {
     name: 'Apple MacBook Air M3',
     data: {
@@ -34,7 +32,7 @@ const updatedObject = {
 };
 
 test.describe('API Automation Tests Assignment', () => {
-    test('Get all objects', async ({ request }) => {
+    test('1) Get all objects', async ({ request }) => {
         const response = await request.get(`${BASE_URL}/objects`);
         expect(response.status()).toBe(200);
         const responseBody = await response.json();
@@ -47,17 +45,18 @@ test.describe('API Automation Tests Assignment', () => {
         await logResponse(response);
     });
 
-    test('Create an object', async ({ request }) => {
+    test('2) Create an object', async ({ request }) => {
         const response = await request.post(`${BASE_URL}/objects`, { data: newObject });
         expect(response.status()).toBe(200);
         const responseBody = await response.json();
         expect(responseBody).toMatchObject(newObject);
         expect(responseBody.id).toBeDefined(); // Ensure that the response contains an ID
         createdObjectId = responseBody.id;
+        console.log("New object Id: " + createdObjectId);
         await logResponse(response);
     });
 
-    test('Retrieve the created object', async ({ request }) => {
+    test('3) Retrieve the created object', async ({ request }) => {
         const response = await request.get(`${BASE_URL}/objects/${createdObjectId}`);
         expect(response.status()).toBe(200);
         const responseBody = await response.json();
@@ -66,16 +65,17 @@ test.describe('API Automation Tests Assignment', () => {
         await logResponse(response);
     });
 
-    test('Update the object', async ({ request }) => {
+    test('4) Update the object', async ({ request }) => {
         const response = await request.put(`${BASE_URL}/objects/${createdObjectId}`, { data: updatedObject });
         expect(response.status()).toBe(200);
         const responseBody = await response.json();
         expect(responseBody).toMatchObject(updatedObject);
         expect(responseBody.name).toBe('Apple MacBook Air M3'); // Ensure the name is updated
+
         await logResponse(response);
     });
 
-    test('Delete the object', async ({ request }) => {
+    test('5) Delete the object', async ({ request }) => {
         const response = await request.delete(`${BASE_URL}/objects/${createdObjectId}`);
         expect(response.status()).toBe(200);
         await logResponse(response);
